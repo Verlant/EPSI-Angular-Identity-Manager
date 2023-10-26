@@ -1,4 +1,16 @@
 <div class="mat-elevation-z8">
+  <div class="toolbar-filter">
+    <mat-form-field style="width: 40%">
+      <mat-label>Nom complet</mat-label>
+      <input matInput (keyup)="applyFilter($event)"
+             placeholder="Entrez le début d'un nom"/>
+    </mat-form-field>
+    &nbsp;&nbsp;
+    <mat-slide-toggle [checked]="unactiveSelected"
+                      (change)="unactiveChange($event)">
+      Utilisateur désactivé uniquement
+    </mat-slide-toggle>
+  </div>
   <table mat-table [dataSource]="dataSource">
 
     <!-- Nom complet Column -->
