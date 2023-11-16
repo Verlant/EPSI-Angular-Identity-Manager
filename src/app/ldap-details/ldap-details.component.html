@@ -10,6 +10,8 @@
     <span>&nbsp; En cours de chargement ...</span>
 </section>
 
+<app-alert $ngIf="errorMessage.length>0" [type]="'danger'">{{ errorMessage }}</app-alert>
+
 <form class="user-form" *ngIf="!processLoadRunning"
       [formGroup]="userForm"
       (ngSubmit)="onSubmitForm()"

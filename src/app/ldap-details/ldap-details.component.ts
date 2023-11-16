@@ -11,6 +11,8 @@ export abstract class LdapDetailsComponent {
   processValidateRunning : boolean = false;
   // Le PlaceHolder pour les mots de passes en fonction de l'édition ou non
   passwordPlaceHolder: string;
+  // Message d'erreur
+  errorMessage = '';
   userForm = this.fb.group({
     login: [''], // Valeur de départ vide
     nom: [''],

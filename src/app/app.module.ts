@@ -21,6 +21,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { LdapEditComponent } from './ldap-edit/ldap-edit.component';
 import { LdapAddComponent } from './ldap-add/ldap-add.component';
+import { AlertComponent } from './share/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LdapAddComponent } from './ldap-add/ldap-add.component';
     PageNotFoundComponent,
     NavbarComponent,
     LdapEditComponent,
-    LdapAddComponent
+    LdapAddComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
