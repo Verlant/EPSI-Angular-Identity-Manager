@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core'
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {UserLdap} from "../models/user-ldap";
 import {MatPaginator} from "@angular/material/paginator";
@@ -11,25 +11,26 @@ import {Router} from "@angular/router";
   templateUrl: './ldap-list.component.html',
   styleUrls: ['./ldap-list.component.css']
 })
-export class LdapListComponent implements OnInit, AfterViewInit {
+
+export class LdapListComponent implements OnInit {
   displayedColumns: string[] = ['nomComplet', 'mail', 'employeNumero'];
   dataSource = new MatTableDataSource<UserLdap>([]);
-  unactiveSelected: boolean;
+  unactiveSelected: boolean = false;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | null;
 
-  constructor(private userService: UsersService, private router: Router) {
+  constructor(private usersService: UsersService, private router: Router) {
     this.paginator = null;
-    this.unactiveSelected = false;
   }
 
   ngOnInit(): void {
-    console.log('Values on ngOnInit():');
     this.dataSource.paginator = this.paginator;
     this.dataSource.filterPredicate = (data: UserLdap, filter: string) => this.filterPredicate(data, filter);
+
     this.getUsers();
-    console.log('Mat Paginator:', this.paginator);
   }
+
+
 
   filterPredicate(data: UserLdap, filter: string): boolean {
     return !filter || data.nomComplet.toLowerCase().startsWith(filter);
@@ -40,41 +41,35 @@ export class LdapListComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  ngAfterViewInit(): void {
-    console.log('Values on ngAfterViewInit():');
-    console.log('Mat Paginator:', this.paginator);
-  }
-
   private getUsers(): void {
-    this.userService.getUsers().subscribe(
+    this.usersService.getUsers().subscribe(
       users => {
         if (this.unactiveSelected) {
-          this.dataSource.data = users.filter(user => !user.active);
+          this.dataSource.data = users.filter( user => !user.active);
         } else {
-          this.dataSource.data = users;
+          this.dataSource.data = users
         }
-      }
-    )
+      });
   }
 
-  unactiveChange($event: MatSlideToggleChange): void {
-    this.unactiveSelected = $event.checked;
-    this.getUsers();
+  unactiveChanged($event: MatSlideToggleChange) : void {
+  this.unactiveSelected = $event.checked;
+  this.getUsers();
+  }
+
+  edit(login: string) : void {
+    this.router.navigate(['user/', login]).then( (e) => {
+      if (!e) {
+        console.error('Navigation has failed !');
+      }
+    });
   }
 
   addUser() {
-    this.router.navigate(['user/add']).then((e) => {
+    this.router.navigate(['/user/add']).then((e) => {
       if (!e) {
-        console.error('Navigation has failed !');
+        console.log('Navigation has failed !');
       }
-    })
-  }
-
-  edit(login: string) {
-    this.router.navigate(['user/add', login]).then((e) => {
-      if (!e) {
-        console.error('Navigation has failed !');
-      }
-    })
+    });
   }
 }

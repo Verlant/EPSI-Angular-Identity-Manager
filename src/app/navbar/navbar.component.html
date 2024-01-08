@@ -1,16 +1,14 @@
 <div>
   <mat-toolbar color="primary">
-    <button
-      type="button"
-      aria-label="Toggle sidenav"
-      mat-icon-button
-      (click)="drawer.toggle()"
-      *ngIf="isHandset$ | async">
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    <button type="button"
+            aria-label="Toggle sidenav"
+            mat-icon-button
+            (click)="drawer.toggle()"
+            *ngIf="isHandset$ | async">
+            <mat-icon aria-label="Side nav toogle icon">menu</mat-icon>
     </button>
     <span>Gestion des utilisateurs</span>
 
-    <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
 
     <button mat-button (click)="logout()">
@@ -18,12 +16,13 @@
       <span>Déconnexion</span>
     </button>
   </mat-toolbar>
+
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" fixedInViewport
                  [fixedTopGap]="64"
-                 [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-                 [mode]="(isHandset$ | async) ? 'over' : 'side'"
-                 [opened]="(isHandset$ | async) === false">
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'side'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="(isHandset$ | async) === false">
       <mat-toolbar>Menu</mat-toolbar>
       <mat-nav-list>
         <h2 matSubheader>Utilisateurs</h2>
@@ -53,7 +52,6 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <!-- Add Content Here -->
       <div class="main_content">
         <router-outlet></router-outlet>
       </div>

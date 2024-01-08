@@ -3,12 +3,12 @@ export interface UserLdap {
   nom: string;
   prenom: string;
   nomComplet: string;
-  motDePasse: string|null;
+  motDePasse: string | null;
   mail: string;
   role: string;
   employeNumero: number;
   employeNiveau: number;
   dateEmbauche: string;
-  publisherId: number;
+  publishedId: number;
   active: boolean;
 }
